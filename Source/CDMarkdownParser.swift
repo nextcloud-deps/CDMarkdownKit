@@ -64,6 +64,10 @@ open class CDMarkdownParser {
     // Enables or disables detection of URLs even without Markdown format
     open var automaticLinkDetectionEnabled: Bool = true
     open var squashNewlines: Bool = true
+
+    // When set to `true`, font, color and paragraph style are initially replaced for the whole string
+    open var overwriteExistingStyle: Bool = true
+
     public let font: CDFont
     public let fontColor: CDColor
     public let backgroundColor: CDColor
@@ -197,17 +201,20 @@ open class CDMarkdownParser {
                                                  length: mutableString.length),
                                   withTemplate: "")
         }
-        let range = NSRange(location: 0,
-                            length: attributedString.length)
 
-        attributedString.addFont(font,
-                                 toRange: range)
-        attributedString.addForegroundColor(fontColor,
-                                            toRange: range)
-        attributedString.addBackgroundColor(backgroundColor,
-                                            toRange: range)
-        attributedString.addParagraphStyle(paragraphStyle,
-                                           toRange: range)
+        if overwriteExistingStyle {
+            let range = NSRange(location: 0,
+                                length: attributedString.length)
+            
+            attributedString.addFont(font,
+                                     toRange: range)
+            attributedString.addForegroundColor(fontColor,
+                                                toRange: range)
+            attributedString.addBackgroundColor(backgroundColor,
+                                                toRange: range)
+            attributedString.addParagraphStyle(paragraphStyle,
+                                               toRange: range)
+        }
 
         var elements: [CDMarkdownElement] = escapingElements
         elements.append(contentsOf: defaultElements)
