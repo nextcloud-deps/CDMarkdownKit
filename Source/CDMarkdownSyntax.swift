@@ -63,7 +63,13 @@ open class CDMarkdownSyntax: CDMarkdownCommonElement {
     open func addAttributes(_ attributedString: NSMutableAttributedString,
                             range: NSRange) {
         let matchString: String = attributedString.attributedSubstring(from: range).string
-        guard let unescapedString = matchString.unescapeUTF16() else { return }
+        guard var unescapedString = matchString.unescapeUTF16() else { return }
+
+        // Make sure we show a empty code block, if the block contains nothing
+        if unescapedString == "\n" || unescapedString.isEmpty {
+            unescapedString = " \n"
+        }
+
         attributedString.replaceCharacters(in: range,
                                            with: unescapedString)
 
