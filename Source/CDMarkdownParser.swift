@@ -65,8 +65,12 @@ open class CDMarkdownParser {
     open var automaticLinkDetectionEnabled: Bool = true
     open var squashNewlines: Bool = true
 
+
     // When set to `true`, font, color and paragraph style are initially replaced for the whole string
     open var overwriteExistingStyle: Bool = true
+
+    // Removes whitespace characters on the beginning of each line
+    open var trimLeadingWhitespaces: Bool = true
 
     public let font: CDFont
     public let fontColor: CDColor
@@ -192,14 +196,17 @@ open class CDMarkdownParser {
                                          with: " ",
                                          range: NSRange(location: 0,
                                                         length: mutableString.length))
-        let regExp = try? NSRegularExpression(pattern: "^\\s+",
-                                              options: .anchorsMatchLines)
-        if let regExp = regExp {
-            regExp.replaceMatches(in: mutableString,
-                                  options: [],
-                                  range: NSRange(location: 0,
-                                                 length: mutableString.length),
-                                  withTemplate: "")
+
+        if trimLeadingWhitespaces {
+            let regExp = try? NSRegularExpression(pattern: "^\\s+",
+                                                  options: .anchorsMatchLines)
+            if let regExp = regExp {
+                regExp.replaceMatches(in: mutableString,
+                                      options: [],
+                                      range: NSRange(location: 0,
+                                                     length: mutableString.length),
+                                      withTemplate: "")
+            }
         }
 
         if overwriteExistingStyle {
