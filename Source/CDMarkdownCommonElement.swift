@@ -53,6 +53,15 @@ public extension CDMarkdownCommonElement {
     }
 
     func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) {
+        let attributes = attributedString.attributes(at: match.nsRange(atIndex: 3).lowerBound, effectiveRange: nil)
+
+        // Don't format parts of the string which already contain a link
+        for attr in attributes {
+            if attr.key == .link {
+                return
+            }
+        }
+
         // deleting trailing markdown
         attributedString.deleteCharacters(in: match.nsRange(atIndex: 4))
         // formatting string (may alter the length)
