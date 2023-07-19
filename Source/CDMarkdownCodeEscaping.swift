@@ -50,7 +50,18 @@ open class CDMarkdownCodeEscaping: CDMarkdownElement {
         let range = match.nsRange(atIndex: 2)
 
         // escaping all characters
-        let matchString = attributedString.attributedSubstring(from: range).string
+        var matchString = attributedString.attributedSubstring(from: range).string
+
+        if matchString.first == "\n" || matchString.first == "\r" {
+            // If the first character is a newline, remove it to have the code block start properly
+            matchString.remove(at: matchString.startIndex)
+        } else if matchString.contains("\n") || matchString.contains("\r") {
+            // If the codeblock contains a info string on the first line, we want to remove that
+            if let range = matchString.range(of: ".*?[\\n\\r]", options: .regularExpression) {
+                matchString = matchString.replacingCharacters(in: range, with: "")
+            }
+        }
+
         let escapedString = [UInt16](matchString.utf16)
             .map { (value: UInt16) -> String in String(format: "%04x",
                                                        value) }
