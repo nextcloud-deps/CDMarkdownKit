@@ -41,6 +41,7 @@ open class CDMarkdownItalic: CDMarkdownCommonElement {
     open var paragraphStyle: NSParagraphStyle?
     open var underlineColor: CDColor?
     open var underlineStyle: NSUnderlineStyle?
+    open var enabled: Bool = true
 
     open var regex: String {
         return CDMarkdownItalic.regex

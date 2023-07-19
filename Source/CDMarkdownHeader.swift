@@ -52,6 +52,7 @@ open class CDMarkdownHeader: CDMarkdownLevelElement {
     open var paragraphStyle: NSParagraphStyle?
     open var underlineColor: CDColor?
     open var underlineStyle: NSUnderlineStyle?
+    open var enabled: Bool = true
 
     open var regex: String {
         let level: String = maxLevel > 0 ? "\(maxLevel)" : ""
