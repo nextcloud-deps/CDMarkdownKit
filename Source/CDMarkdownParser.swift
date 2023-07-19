@@ -65,6 +65,10 @@ open class CDMarkdownParser {
     open var automaticLinkDetectionEnabled: Bool = true
     open var squashNewlines: Bool = true
 
+
+    // When set to `true`, font, color and paragraph style are initially replaced for the whole string
+    open var overwriteExistingStyle: Bool = true
+
     // Removes whitespace characters on the beginning of each line
     open var trimLeadingWhitespaces: Bool = true
 
@@ -205,17 +209,19 @@ open class CDMarkdownParser {
             }
         }
 
-        let range = NSRange(location: 0,
-                            length: attributedString.length)
-
-        attributedString.addFont(font,
-                                 toRange: range)
-        attributedString.addForegroundColor(fontColor,
-                                            toRange: range)
-        attributedString.addBackgroundColor(backgroundColor,
-                                            toRange: range)
-        attributedString.addParagraphStyle(paragraphStyle,
-                                           toRange: range)
+        if overwriteExistingStyle {
+            let range = NSRange(location: 0,
+                                length: attributedString.length)
+            
+            attributedString.addFont(font,
+                                     toRange: range)
+            attributedString.addForegroundColor(fontColor,
+                                                toRange: range)
+            attributedString.addBackgroundColor(backgroundColor,
+                                                toRange: range)
+            attributedString.addParagraphStyle(paragraphStyle,
+                                               toRange: range)
+        }
 
         var elements: [CDMarkdownElement] = escapingElements
         elements.append(contentsOf: defaultElements)
