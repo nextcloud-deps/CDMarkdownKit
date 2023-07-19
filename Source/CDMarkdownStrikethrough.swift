@@ -43,6 +43,7 @@ open class CDMarkdownStrikethrough: CDMarkdownCommonElement {
     open var strikethroughStyle: NSUnderlineStyle?
     open var underlineColor: CDColor?
     open var underlineStyle: NSUnderlineStyle?
+    open var enabled: Bool = true
 
     open var regex: String {
         return CDMarkdownStrikethrough.regex

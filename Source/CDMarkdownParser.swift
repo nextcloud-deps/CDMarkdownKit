@@ -222,7 +222,7 @@ open class CDMarkdownParser {
         elements.append(contentsOf: customElements)
         elements.append(contentsOf: unescapingElements)
         elements.forEach { element in
-            if automaticLinkDetectionEnabled || type(of: element) != CDMarkdownAutomaticLink.self {
+            if element.enabled, automaticLinkDetectionEnabled || type(of: element) != CDMarkdownAutomaticLink.self {
                 element.parse(attributedString)
             }
         }

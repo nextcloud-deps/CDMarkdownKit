@@ -34,6 +34,7 @@
 open class CDMarkdownUnescaping: CDMarkdownElement {
 
     fileprivate static let regex = "\\\\[0-9a-z]{4}"
+    open var enabled: Bool = true
 
     open var regex: String {
         return CDMarkdownUnescaping.regex

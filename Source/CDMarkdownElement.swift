@@ -31,6 +31,7 @@ import Foundation
 public protocol CDMarkdownElement: AnyObject {
 
     var regex: String { get }
+    var enabled: Bool { get set }
 
     func regularExpression() throws -> NSRegularExpression
     func parse(_ attributedString: NSMutableAttributedString)

@@ -34,6 +34,7 @@
 open class CDMarkdownCodeEscaping: CDMarkdownElement {
 
     fileprivate static let regex = "(?<!\\\\)(?:\\\\\\\\)*+(`+)(.*?[^`].*?)(\\1)(?!`)"
+    open var enabled: Bool = true
 
     open var regex: String {
         return CDMarkdownCodeEscaping.regex

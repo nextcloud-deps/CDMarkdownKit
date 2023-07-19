@@ -34,6 +34,7 @@
 open class CDMarkdownEscaping: CDMarkdownElement {
 
     fileprivate static let regex = "\\\\."
+    open var enabled: Bool = true
 
     open var regex: String {
         return CDMarkdownEscaping.regex
