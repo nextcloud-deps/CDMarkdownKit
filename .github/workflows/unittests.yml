@@ -1,0 +1,42 @@
+name: Build main target
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+      - CDMarkdownKit.xcodeproj/**
+      - CDMarkdownKitTests/**
+      - Source/**
+
+    push:
+      branches:
+        - main
+        - master
+        - stable*
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: macOS-latest
+    if: github.event.pull_request.draft == false
+
+    env:
+      WORKSPACE: CDMarkdownKit.xcworkspace
+      DESTINATION: platform=iOS Simulator,name=iPhone 14,OS=16.2
+      SCHEME: "CDMarkdownKit iOS"
+
+    steps:
+    - name: Checkout app
+      uses: actions/checkout@v3    
+
+    - name: Build & Test CDMarkdownKit iOS
+      run: |
+        set -o pipefail && xcodebuild test -workspace $WORKSPACE \
+        -scheme "$SCHEME" \
+        -destination "$DESTINATION" \
+        -test-iterations 3 \
+        -retry-tests-on-failure \
+        | xcpretty
