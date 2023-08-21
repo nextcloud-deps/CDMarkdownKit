@@ -65,12 +65,11 @@ final class TestSyntax: XCTestCase {
     func testSyntaxEmpty() throws {
         let parser = getParser()
 
-        // Info string is removed in multiline syntax blocks
+        // Empty syntax strings should still be rendered as an empty line
         var parsed = parser.parse("``````")
         XCTAssertEqual(parsed.string, " \n")
         XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 0))
 
-        // If no new line is found, the content is not considered a infostring
         parsed = parser.parse("```\n```")
         XCTAssertEqual(parsed.string, " \n")
         XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 0))
