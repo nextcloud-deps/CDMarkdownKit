@@ -41,9 +41,8 @@ public protocol CDMarkdownCommonElement: CDMarkdownElement, CDMarkdownStyle {
 
 public extension CDMarkdownCommonElement {
 
-    func regularExpression() throws -> NSRegularExpression {
-        return try NSRegularExpression(pattern: regex,
-                                       options: [])
+    func regularExpressions() throws -> [NSRegularExpression] {
+        return try regex.map { try NSRegularExpression(pattern: $0, options: []) }
     }
 
     func addAttributes(_ attributedString: NSMutableAttributedString,
@@ -53,6 +52,8 @@ public extension CDMarkdownCommonElement {
     }
 
     func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) {
+        print(attributedString)
+        print(match.nsRange(atIndex: 3))
         let attributes = attributedString.attributes(at: match.nsRange(atIndex: 3).lowerBound, effectiveRange: nil)
 
         // Don't format parts of the string which already contain a link

@@ -33,7 +33,7 @@
 
 open class CDMarkdownSyntax: CDMarkdownCommonElement {
 
-    fileprivate static let regex = "(\\s+|^)(`{3})(\\s*[^`]*?\\s*)(\\2)(?!`)"
+    fileprivate static let regex = ["()(`{3})(\\s*[^`]*?\\s*)(\\2)(?!`)"]
 
     open var font: CDFont?
     open var color: CDColor?
@@ -43,7 +43,7 @@ open class CDMarkdownSyntax: CDMarkdownCommonElement {
     open var underlineStyle: NSUnderlineStyle?
     open var enabled: Bool = true
 
-    open var regex: String {
+    open var regex: [String] {
         return CDMarkdownSyntax.regex
     }
 

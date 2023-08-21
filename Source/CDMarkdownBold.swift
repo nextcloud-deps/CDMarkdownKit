@@ -33,7 +33,7 @@
 
 open class CDMarkdownBold: CDMarkdownCommonElement {
 
-    fileprivate static let regex = "()(\\*\\*|__)(.*?)(\\2)"
+    fileprivate static let regex = ["()(\\*\\*)(.*?)(\\*\\*)", "(^|\\s)(__)(.*?)(__)(\\s|$)"]
 
     open var font: CDFont?
     open var color: CDColor?
@@ -43,7 +43,7 @@ open class CDMarkdownBold: CDMarkdownCommonElement {
     open var underlineStyle: NSUnderlineStyle?
     open var enabled: Bool = true
 
-    open var regex: String {
+    open var regex: [String] {
         return CDMarkdownBold.regex
     }
 

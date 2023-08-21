@@ -33,16 +33,15 @@
 
 open class CDMarkdownCodeEscaping: CDMarkdownElement {
 
-    fileprivate static let regex = "(?<!\\\\)(?:\\\\\\\\)*+(`+)(.*?[^`].*?)(\\1)(?!`)"
+    fileprivate static let regex = ["(?<!\\\\)(?:\\\\\\\\)*+(`+)(.*?[^`].*?)(\\1)(?!`)"]
     open var enabled: Bool = true
 
-    open var regex: String {
+    open var regex: [String] {
         return CDMarkdownCodeEscaping.regex
     }
 
-    open func regularExpression() throws -> NSRegularExpression {
-        return try NSRegularExpression(pattern: regex,
-                                       options: .dotMatchesLineSeparators)
+    open func regularExpressions() throws -> [NSRegularExpression] {
+        return try regex.map { try NSRegularExpression(pattern: $0, options: .dotMatchesLineSeparators) }
     }
 
     open func match(_ match: NSTextCheckingResult,

@@ -52,9 +52,9 @@ public protocol CDMarkdownLevelElement: CDMarkdownElement, CDMarkdownStyle {
 
 public extension CDMarkdownLevelElement {
 
-    func regularExpression() throws -> NSRegularExpression {
-        return try NSRegularExpression(pattern: regex,
-                                       options: .anchorsMatchLines)
+    func regularExpressions() throws -> [NSRegularExpression] {
+        return try [NSRegularExpression(pattern: regex.first!,
+                                       options: .anchorsMatchLines)]
     }
 
     func addFullAttributes(_ attributedString: NSMutableAttributedString,

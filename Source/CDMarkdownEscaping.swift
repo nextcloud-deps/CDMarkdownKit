@@ -33,16 +33,15 @@
 
 open class CDMarkdownEscaping: CDMarkdownElement {
 
-    fileprivate static let regex = "\\\\."
+    fileprivate static let regex = ["\\\\."]
     open var enabled: Bool = true
 
-    open var regex: String {
+    open var regex: [String] {
         return CDMarkdownEscaping.regex
     }
 
-    open func regularExpression() throws -> NSRegularExpression {
-        return try NSRegularExpression(pattern: regex,
-                                       options: .dotMatchesLineSeparators)
+    open func regularExpressions() throws -> [NSRegularExpression] {
+        return try regex.map { try NSRegularExpression(pattern: $0, options: .dotMatchesLineSeparators) }
     }
 
     open func match(_ match: NSTextCheckingResult,
