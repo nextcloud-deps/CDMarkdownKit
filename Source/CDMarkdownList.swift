@@ -33,7 +33,7 @@
 
 open class CDMarkdownList: CDMarkdownLevelElement {
 
-    fileprivate static let regex = "^\\s*([\\*\\+\\-]{1,%@})[ \t]+(.+)$"
+    fileprivate static let regex = ["^\\s*([\\*\\+\\-]{1,%@})[ \t]+(.+)$"]
 
     open var font: CDFont?
     open var maxLevel: Int
@@ -46,10 +46,10 @@ open class CDMarkdownList: CDMarkdownLevelElement {
     open var underlineStyle: NSUnderlineStyle?
     open var enabled: Bool = true
 
-    open var regex: String {
+    open var regex: [String] {
         let level: String = maxLevel > 0 ? "\(maxLevel)" : ""
-        return String(format: CDMarkdownList.regex,
-                      level)
+        return [String(format: CDMarkdownList.regex.first!,
+                      level)]
     }
 
     public init(font: CDFont? = nil,

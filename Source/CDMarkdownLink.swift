@@ -33,7 +33,7 @@
 
 open class CDMarkdownLink: CDMarkdownLinkElement {
 
-    fileprivate static let regex = "[^!{1}]\\[([^\\[]*?)\\]\\(([^\\)]*)\\)"
+    fileprivate static let regex = ["[^!{1}]\\[([^\\[]*?)\\]\\(([^\\)]*)\\)"]
 
     open var font: CDFont?
     open var color: CDColor?
@@ -43,13 +43,12 @@ open class CDMarkdownLink: CDMarkdownLinkElement {
     open var underlineStyle: NSUnderlineStyle?
     open var enabled: Bool = true
 
-    open var regex: String {
+    open var regex: [String] {
         return CDMarkdownLink.regex
     }
 
-    open func regularExpression() throws -> NSRegularExpression {
-        return try NSRegularExpression(pattern: regex,
-                                       options: .dotMatchesLineSeparators)
+    open func regularExpressions() throws -> [NSRegularExpression] {
+        return try regex.map { try NSRegularExpression(pattern: $0, options: .dotMatchesLineSeparators) }
     }
 
     public init(font: CDFont? = nil,

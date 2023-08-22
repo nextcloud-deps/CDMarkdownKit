@@ -33,7 +33,7 @@
 
 open class CDMarkdownItalic: CDMarkdownCommonElement {
 
-    fileprivate static let regex = "()(\\*|_)(.*?)(\\2)"
+    fileprivate static let regex = ["()(\\*)(.*?)(\\*)", "(^|\\s)(_)(.*?)(_)(\\s|$)"]
 
     open var font: CDFont?
     open var color: CDColor?
@@ -43,7 +43,7 @@ open class CDMarkdownItalic: CDMarkdownCommonElement {
     open var underlineStyle: NSUnderlineStyle?
     open var enabled: Bool = true
 
-    open var regex: String {
+    open var regex: [String] {
         return CDMarkdownItalic.regex
     }
 

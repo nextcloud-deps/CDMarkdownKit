@@ -33,16 +33,15 @@
 
 open class CDMarkdownUnescaping: CDMarkdownElement {
 
-    fileprivate static let regex = "\\\\[0-9a-z]{4}"
+    fileprivate static let regex = ["\\\\[0-9a-z]{4}"]
     open var enabled: Bool = true
 
-    open var regex: String {
+    open var regex: [String] {
         return CDMarkdownUnescaping.regex
     }
 
-    open func regularExpression() throws -> NSRegularExpression {
-        return try NSRegularExpression(pattern: regex,
-                                       options: .dotMatchesLineSeparators)
+    open func regularExpressions() throws -> [NSRegularExpression] {
+        return try regex.map { try NSRegularExpression(pattern: $0, options: .dotMatchesLineSeparators) }
     }
 
     open func match(_ match: NSTextCheckingResult,

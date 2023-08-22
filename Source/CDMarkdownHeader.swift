@@ -33,7 +33,7 @@
 
 open class CDMarkdownHeader: CDMarkdownLevelElement {
 
-    fileprivate static let regex = "^\\s*(#{1,%@})\\s*(.+)$\n*"
+    fileprivate static let regex = ["^\\s*(#{1,%@})\\s*(.+)$\n*"]
     fileprivate struct CDMarkdownHeadingHashes {
         static let one   = 9
         static let two   = 5
@@ -54,9 +54,9 @@ open class CDMarkdownHeader: CDMarkdownLevelElement {
     open var underlineStyle: NSUnderlineStyle?
     open var enabled: Bool = true
 
-    open var regex: String {
+    open var regex: [String] {
         let level: String = maxLevel > 0 ? "\(maxLevel)" : ""
-        return String(format: CDMarkdownHeader.regex, level)
+        return [String(format: CDMarkdownHeader.regex.first!, level)]
     }
 
     public init(font: CDFont? = CDFont.boldSystemFont(ofSize: 12),
