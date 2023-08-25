@@ -68,5 +68,12 @@ class TestHelpers {
     static func anyMonospaced(testString: NSAttributedString) -> Bool {
         return anyHelper(testString: testString, trait: .traitMonoSpace)
     }
+
+    static func hasBackgroundColor(testString: NSAttributedString, at location: Int, color: UIColor) -> Bool {
+        let attributes = testString.attributes(at: location, effectiveRange: nil)
+
+        return attributes.contains { $0.key == .backgroundColor && ($0.value as! UIColor).isEqualTo(otherColor: color) }
+    }
+
     
 }
