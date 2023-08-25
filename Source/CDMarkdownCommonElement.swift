@@ -52,8 +52,6 @@ public extension CDMarkdownCommonElement {
     }
 
     func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) {
-        print(attributedString)
-        print(match.nsRange(atIndex: 3))
         let attributes = attributedString.attributes(at: match.nsRange(atIndex: 3).lowerBound, effectiveRange: nil)
 
         // Don't format parts of the string which already contain a link
