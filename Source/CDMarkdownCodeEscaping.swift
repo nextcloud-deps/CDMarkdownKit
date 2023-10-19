@@ -62,13 +62,7 @@ open class CDMarkdownCodeEscaping: CDMarkdownElement {
             }
         }
 
-        let escapedString = [UInt16](matchString.utf16)
-            .map { (value: UInt16) -> String in String(format: "%04x",
-                                                       value) }
-            .reduce("") { (string: String, character: String) -> String in
-                return "\(string)\(character)"
-        }
         attributedString.replaceCharacters(in: range,
-                                           with: escapedString)
+                                           with: matchString.toBase64())
     }
 }

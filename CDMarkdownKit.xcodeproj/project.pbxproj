@@ -13,6 +13,7 @@
 		1F66CB682A8EB04C00FC7BA7 /* CDMarkdownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B365B71F3245800078B962 /* CDMarkdownKit.framework */; };
 		1F66CB7A2A8FBC1000FC7BA7 /* TestBold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66CB792A8FBC1000FC7BA7 /* TestBold.swift */; };
 		1F66CB7C2A8FBC8F00FC7BA7 /* TestCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66CB7B2A8FBC8F00FC7BA7 /* TestCode.swift */; };
+		1F8538492ADFE12E0011FE81 /* TestEscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8538482ADFE12E0011FE81 /* TestEscape.swift */; };
 		1F9A797D2A98B4AF00E153E3 /* TestHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A797C2A98B4AF00E153E3 /* TestHeader.swift */; };
 		5F0AD09521063D36007B718F /* CDImage+CDMarkdownKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0AD09421063D36007B718F /* CDImage+CDMarkdownKit.swift */; };
 		5F0AD09621063D36007B718F /* CDImage+CDMarkdownKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0AD09421063D36007B718F /* CDImage+CDMarkdownKit.swift */; };
@@ -181,6 +182,7 @@
 		1F66CB662A8EB04C00FC7BA7 /* TestItalic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestItalic.swift; sourceTree = "<group>"; };
 		1F66CB792A8FBC1000FC7BA7 /* TestBold.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBold.swift; sourceTree = "<group>"; };
 		1F66CB7B2A8FBC8F00FC7BA7 /* TestCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCode.swift; sourceTree = "<group>"; };
+		1F8538482ADFE12E0011FE81 /* TestEscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestEscape.swift; sourceTree = "<group>"; };
 		1F9A797C2A98B4AF00E153E3 /* TestHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHeader.swift; sourceTree = "<group>"; };
 		5F0AD09421063D36007B718F /* CDImage+CDMarkdownKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDImage+CDMarkdownKit.swift"; sourceTree = "<group>"; };
 		B205C6651FC129EB00E74CBA /* CDColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDColor.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 				1F66CB792A8FBC1000FC7BA7 /* TestBold.swift */,
 				1F66CB662A8EB04C00FC7BA7 /* TestItalic.swift */,
 				1F66CB7B2A8FBC8F00FC7BA7 /* TestCode.swift */,
+				1F8538482ADFE12E0011FE81 /* TestEscape.swift */,
 				1F9A797C2A98B4AF00E153E3 /* TestHeader.swift */,
 				1F02B8592A90D60D0023148B /* TestSyntax.swift */,
 			);
@@ -707,6 +710,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F8538492ADFE12E0011FE81 /* TestEscape.swift in Sources */,
 				1F9A797D2A98B4AF00E153E3 /* TestHeader.swift in Sources */,
 				1F66CB7A2A8FBC1000FC7BA7 /* TestBold.swift in Sources */,
 				1F02B85C2A90D6210023148B /* TestHelpers.swift in Sources */,

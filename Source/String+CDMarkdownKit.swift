@@ -69,6 +69,22 @@ internal extension String {
                       count: utf16Array.count)
     }
 
+    func toBase64() -> String {
+        if let encoded = self.data(using: .utf16)?.base64EncodedString() {
+            return encoded
+        }
+
+        return ""
+    }
+
+    func fromBase64() -> String? {
+        guard let data = Data(base64Encoded: self) else {
+            return nil
+        }
+
+        return String(data: data, encoding: .utf16)
+    }
+
     func range(from nsRange: NSRange) -> Range<String.Index>? {
         guard
             let from16 = utf16.index(utf16.startIndex, offsetBy: nsRange.location, limitedBy: utf16.endIndex),
@@ -84,10 +100,6 @@ internal extension String {
     }
 
     func sizeWithAttributes(_ attributes: [CDAttributedStringKey: Any]? = nil) -> CGSize {
-#if os(macOS)
         return self.size(withAttributes: attributes)
-#else
-        return self.size(withAttributes: attributes)
-#endif
     }
 }
