@@ -55,10 +55,8 @@ public extension CDMarkdownCommonElement {
         let attributes = attributedString.attributes(at: match.nsRange(atIndex: 3).lowerBound, effectiveRange: nil)
 
         // Don't format parts of the string which already contain a link
-        for attr in attributes {
-            if attr.key == .link {
-                return
-            }
+        if attributes.contains(where: { $0.key == .link}) {
+            return
         }
 
         // deleting trailing markdown

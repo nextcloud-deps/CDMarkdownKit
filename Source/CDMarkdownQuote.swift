@@ -75,7 +75,7 @@ open class CDMarkdownQuote: CDMarkdownLevelElement {
     open func formatText(_ attributedString: NSMutableAttributedString,
                          range: NSRange,
                          level: Int) {
-        
+
         attributedString.replaceCharacters(in: range,
                                            with: "")
     }
@@ -84,7 +84,7 @@ open class CDMarkdownQuote: CDMarkdownLevelElement {
         var attributes = self.attributes
 
         // Add a custom attribute to quote paragraph, so we can detect it later in the layout phase
-        attributes[.quoteLevel] = NSNumber(integerLiteral: level)
+        attributes[.quoteLevel] = NSNumber(value: level)
 
         let paragraphIndent = (level + 1) * 16
         let updatedParagraphStyle = paragraphStyle?.mutableCopy() as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()

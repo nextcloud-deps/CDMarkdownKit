@@ -46,7 +46,7 @@ open class CDMarkdownLayoutManager: NSLayoutManager {
 
         var previousRects: [(Int, CGRect)] = []
 
-        attributedString.enumerateAttribute(.quoteLevel, in: NSRange(location: 0, length: attributedString.length), using: { value, range, stop in
+        attributedString.enumerateAttribute(.quoteLevel, in: NSRange(location: 0, length: attributedString.length), using: { value, range, _ in
             guard let currentLevel = value as? Int else { return }
 
             // Since "range" is now relative to the attributedString range, we need to adjust the location for the layoutManager
@@ -62,19 +62,19 @@ open class CDMarkdownLayoutManager: NSLayoutManager {
             let textRectFirstLine = self.boundingRect(forGlyphRange: glyphRangeFirstLine, in: self.textContainers[0])
 
             // Create a rect that would later become our quote indicator (the bar on the left side of the quote)
-            let newRect = CGRectMake(textRectFirstLine.origin.x - 15, textRect.origin.y + 2, 8, textRect.size.height - 4);
+            let newRect = CGRect(x: textRectFirstLine.origin.x - 15, y: textRect.origin.y + 2, width: 8, height: textRect.size.height - 4)
 
-            for i in previousRects.indices.reversed() {
-                var (level, rect) = previousRects[i]
+            for rectIdx in previousRects.indices.reversed() {
+                var (level, rect) = previousRects[rectIdx]
 
                 if level < currentLevel {
                     // If there are lower levels than the current one, we want to adjust the height to include the current level
-                    rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height + textRect.size.height)
-                    previousRects[i] = (level, rect)
+                    rect = CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.size.width, height: rect.size.height + textRect.size.height)
+                    previousRects[rectIdx] = (level, rect)
                 } else {
                     // If there are higher levels than the current one, we want to draw these rects now
                     UIBezierPath(roundedRect: rect, cornerRadius: 4).fill()
-                    previousRects.remove(at: i)
+                    previousRects.remove(at: rectIdx)
                 }
             }
 
@@ -82,8 +82,8 @@ open class CDMarkdownLayoutManager: NSLayoutManager {
         })
 
         // Any remaining rects need to be drawn now
-        for i in previousRects.indices.reversed() {
-            let (_, rect) = previousRects[i]
+        for rectIdx in previousRects.indices.reversed() {
+            let (_, rect) = previousRects[rectIdx]
             UIBezierPath(roundedRect: rect, cornerRadius: 4).fill()
         }
     }
