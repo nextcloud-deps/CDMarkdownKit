@@ -75,11 +75,27 @@ open class CDMarkdownQuote: CDMarkdownLevelElement {
     open func formatText(_ attributedString: NSMutableAttributedString,
                          range: NSRange,
                          level: Int) {
-        var string = (0..<level).reduce("") { (string: String, _: Int) -> String in
-            return "\(string)\(separator)"
-        }
-        string = "\(string)\(indicator) "
+
         attributedString.replaceCharacters(in: range,
-                                           with: string)
+                                           with: "")
     }
+
+    open func attributesForLevel(_ level: Int) -> [CDAttributedStringKey: AnyObject] {
+        var attributes = self.attributes
+
+        // Add a custom attribute to quote paragraph, so we can detect it later in the layout phase
+        attributes[.quoteLevel] = NSNumber(value: level)
+
+        let paragraphIndent = (level + 1) * 12
+        let updatedParagraphStyle = paragraphStyle?.mutableCopy() as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
+        updatedParagraphStyle.headIndent = CGFloat(paragraphIndent)
+        updatedParagraphStyle.firstLineHeadIndent = CGFloat(paragraphIndent)
+        attributes.addParagraphStyle(updatedParagraphStyle)
+
+        return attributes
+    }
+}
+
+extension NSAttributedString.Key {
+    static let quoteLevel: NSAttributedString.Key = .init("quoteLevel")
 }

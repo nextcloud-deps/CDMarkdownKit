@@ -30,7 +30,7 @@ import PackageDescription
 
 let package = Package(name: "CDMarkdownKit",
                       platforms: [.macOS(.v10_13),
-                                  .iOS(.v11),
+                                  .iOS(.v15),
                                   .tvOS(.v11),
                                   .watchOS(.v4)],
                       products: [.library(name: "CDMarkdownKit",

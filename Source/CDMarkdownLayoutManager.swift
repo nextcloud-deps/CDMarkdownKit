@@ -35,6 +35,59 @@ open class CDMarkdownLayoutManager: NSLayoutManager {
     open var roundCodeCorners: Bool = false
     open var roundSyntaxCorners: Bool = false
 
+    open override func drawBackground(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
+        super.drawBackground(forGlyphRange: glyphsToShow, at: origin)
+
+        let charRange = self.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
+        guard let attributedString = self.textStorage?.attributedSubstring(from: charRange) else { return }
+
+        // Use systemFill color for all drawings
+        UIColor.systemFill.set()
+
+        var previousRects: [(Int, CGRect)] = []
+
+        attributedString.enumerateAttribute(.quoteLevel, in: NSRange(location: 0, length: attributedString.length), using: { value, range, _ in
+            guard let currentLevel = value as? Int else { return }
+
+            // Since "range" is now relative to the attributedString range, we need to adjust the location for the layoutManager
+            let adjustedRange = NSRange(location: range.location + glyphsToShow.location, length: range.length)
+
+            // Determine the boundingRect of the quote
+            let glyphRange = self.glyphRange(forCharacterRange: adjustedRange, actualCharacterRange: nil)
+            let textRect = self.boundingRect(forGlyphRange: glyphRange, in: self.textContainers[0])
+
+            // For multiline paragraphs we will always have x = 0,
+            // therefore we check the position of the very first character to correctly determine the indention.
+            let glyphRangeFirstLine = self.glyphRange(forCharacterRange: NSRange(location: adjustedRange.location, length: 1), actualCharacterRange: nil)
+            let textRectFirstLine = self.boundingRect(forGlyphRange: glyphRangeFirstLine, in: self.textContainers[0])
+
+            // Create a rect that would later become our quote indicator (the bar on the left side of the quote)
+            let newRect = CGRect(x: textRectFirstLine.origin.x - 9, y: textRect.origin.y + 2, width: 4, height: textRect.size.height - 4)
+
+            for rectIdx in previousRects.indices.reversed() {
+                var (level, rect) = previousRects[rectIdx]
+
+                if level < currentLevel {
+                    // If there are lower levels than the current one, we want to adjust the height to include the current level
+                    rect = CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.size.width, height: rect.size.height + textRect.size.height)
+                    previousRects[rectIdx] = (level, rect)
+                } else {
+                    // If there are higher levels than the current one, we want to draw these rects now
+                    UIBezierPath(roundedRect: rect, cornerRadius: 2).fill()
+                    previousRects.remove(at: rectIdx)
+                }
+            }
+
+            previousRects.append((currentLevel, newRect))
+        })
+
+        // Any remaining rects need to be drawn now
+        for rectIdx in previousRects.indices.reversed() {
+            let (_, rect) = previousRects[rectIdx]
+            UIBezierPath(roundedRect: rect, cornerRadius: 2).fill()
+        }
+    }
+
     override open func fillBackgroundRectArray(_ rectArray: UnsafePointer<CGRect>,
                                                count rectCount: Int,
                                                forCharacterRange charRange: NSRange,
