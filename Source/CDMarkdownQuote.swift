@@ -86,7 +86,7 @@ open class CDMarkdownQuote: CDMarkdownLevelElement {
         // Add a custom attribute to quote paragraph, so we can detect it later in the layout phase
         attributes[.quoteLevel] = NSNumber(value: level)
 
-        let paragraphIndent = (level + 1) * 16
+        let paragraphIndent = (level + 1) * 12
         let updatedParagraphStyle = paragraphStyle?.mutableCopy() as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
         updatedParagraphStyle.headIndent = CGFloat(paragraphIndent)
         updatedParagraphStyle.firstLineHeadIndent = CGFloat(paragraphIndent)
