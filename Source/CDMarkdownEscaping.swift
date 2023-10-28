@@ -51,7 +51,7 @@ open class CDMarkdownEscaping: CDMarkdownElement {
         // escape one character
         let matchString = attributedString.attributedSubstring(from: range).string
         if let escapedString = [UInt16](matchString.utf16).first
-            .flatMap({ (value: UInt16) -> String in String(format: "%04x",
+            .flatMap({ (value: UInt16) -> String in String(format: "#%04x#",
                                                            value) }) {
             attributedString.replaceCharacters(in: range,
                                                with: escapedString)
