@@ -36,4 +36,33 @@ final class TestEscape: XCTestCase {
         let parsed = parser.parse("\\# Hello")
         XCTAssertEqual(parsed.string, "# Hello")
     }
+
+    func testEscapedSyntax() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("\\`\\`\\`\nHello\\`\\`\\`")
+        XCTAssertEqual(parsed.string, "```\nHello```")
+    }
+
+    func testEscapedCode() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("Hello \\`Hi\\\\nABC\\`")
+        XCTAssertEqual(parsed.string, "Hello `Hi\\nABC`")
+    }
+
+
+    func testUnescapeInSyntax() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("```\nHello\\nthis should not trigger a (un-)escape```")
+        XCTAssertEqual(parsed.string, "Hello\\nthis should not trigger a (un-)escape")
+    }
+
+    func testUnescapeQuoteInSyntax() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("```\n> This should be left as is```")
+        XCTAssertEqual(parsed.string, "> This should be left as is")
+    }
 }

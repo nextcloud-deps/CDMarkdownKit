@@ -33,7 +33,7 @@
 
 open class CDMarkdownUnescaping: CDMarkdownElement {
 
-    fileprivate static let regex = ["\\\\[0-9a-z]{4}"]
+    fileprivate static let regex = ["\\\\#[0-9a-f]{4}#"]
     open var enabled: Bool = true
 
     open var regex: [String] {
@@ -46,7 +46,7 @@ open class CDMarkdownUnescaping: CDMarkdownElement {
 
     open func match(_ match: NSTextCheckingResult,
                     attributedString: NSMutableAttributedString) {
-        let range = NSRange(location: match.range.location + 1,
+        let range = NSRange(location: match.range.location + 2,
                             length: 4)
         let matchString = attributedString.attributedSubstring(from: range).string
         guard let unescapedString = matchString.unescapeUTF16() else { return }
