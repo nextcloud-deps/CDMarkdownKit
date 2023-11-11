@@ -43,13 +43,15 @@ open class CDMarkdownLink: CDMarkdownLinkElement {
     open var underlineStyle: NSUnderlineStyle?
     open var enabled: Bool = true
 
-    open var regex: [String] {
-        return CDMarkdownLink.regex
+    // Use function here to allow overriding in subclass
+    open func getRegularExpressions() throws -> [NSRegularExpression] {
+        return try CDMarkdownLink.regex.map { try NSRegularExpression(pattern: $0, options: .dotMatchesLineSeparators) }
     }
 
-    open func regularExpressions() throws -> [NSRegularExpression] {
-        return try regex.map { try NSRegularExpression(pattern: $0, options: .dotMatchesLineSeparators) }
-    }
+    lazy open var regularExpressions: [NSRegularExpression] = {
+        // swiftlint:disable:next force_try
+        return try! self.getRegularExpressions()
+    }()
 
     public init(font: CDFont? = nil,
                 color: CDColor? = CDColor.blue,
