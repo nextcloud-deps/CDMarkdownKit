@@ -38,28 +38,25 @@ open class CDMarkdownLayoutManager: NSLayoutManager {
     open override func drawBackground(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
         super.drawBackground(forGlyphRange: glyphsToShow, at: origin)
 
-        let charRange = self.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
-        guard let attributedString = self.textStorage?.attributedSubstring(from: charRange) else { return }
+        guard let textStorage = textStorage, textContainers.count > 0 else { return }
+        let textContainer = textContainers[0]
 
         // Use systemFill color for all drawings
         UIColor.systemFill.set()
 
         var previousRects: [(Int, CGRect)] = []
 
-        attributedString.enumerateAttribute(.quoteLevel, in: NSRange(location: 0, length: attributedString.length), using: { value, range, _ in
+        textStorage.enumerateAttribute(.quoteLevel, in: NSRange(location: 0, length: textStorage.length), using: { value, range, _ in
             guard let currentLevel = value as? Int else { return }
 
-            // Since "range" is now relative to the attributedString range, we need to adjust the location for the layoutManager
-            let adjustedRange = NSRange(location: range.location + glyphsToShow.location, length: range.length)
-
             // Determine the boundingRect of the quote
-            let glyphRange = self.glyphRange(forCharacterRange: adjustedRange, actualCharacterRange: nil)
-            let textRect = self.boundingRect(forGlyphRange: glyphRange, in: self.textContainers[0])
+            let glyphRange = self.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
+            let textRect = self.boundingRect(forGlyphRange: glyphRange, in: textContainer)
 
             // For multiline paragraphs we will always have x = 0,
             // therefore we check the position of the very first character to correctly determine the indention.
-            let glyphRangeFirstLine = self.glyphRange(forCharacterRange: NSRange(location: adjustedRange.location, length: 1), actualCharacterRange: nil)
-            let textRectFirstLine = self.boundingRect(forGlyphRange: glyphRangeFirstLine, in: self.textContainers[0])
+            let glyphRangeFirstLine = self.glyphRange(forCharacterRange: NSRange(location: range.location, length: 1), actualCharacterRange: nil)
+            let textRectFirstLine = self.boundingRect(forGlyphRange: glyphRangeFirstLine, in: textContainer)
 
             // Create a rect that would later become our quote indicator (the bar on the left side of the quote)
             let newRect = CGRect(x: textRectFirstLine.origin.x - 9, y: textRect.origin.y + 2, width: 4, height: textRect.size.height - 4)
