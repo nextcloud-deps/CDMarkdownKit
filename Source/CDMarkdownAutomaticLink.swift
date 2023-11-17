@@ -33,7 +33,7 @@
 
 open class CDMarkdownAutomaticLink: CDMarkdownLink {
 
-    open override func regularExpressions() throws -> [NSRegularExpression] {
+    open override func getRegularExpressions() throws -> [NSRegularExpression] {
         return try [NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)]
     }
 

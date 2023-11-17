@@ -34,7 +34,6 @@
 #if os(iOS) || os(macOS) || os(tvOS)
 
 open class CDMarkdownImage: CDMarkdownLinkElement {
-
     fileprivate static let regex = ["[!{1}]\\[([^\\[]*?)\\]\\(([^\\)]*)\\)"]
 
     open var font: CDFont?
@@ -46,13 +45,10 @@ open class CDMarkdownImage: CDMarkdownLinkElement {
     open var underlineStyle: NSUnderlineStyle?
     open var enabled: Bool = true
 
-    open var regex: [String] {
-        return CDMarkdownImage.regex
-    }
-
-    open func regularExpressions() throws -> [NSRegularExpression] {
-        return try regex.map { try NSRegularExpression(pattern: $0, options: .dotMatchesLineSeparators) }
-    }
+    lazy open var regularExpressions: [NSRegularExpression] = {
+        // swiftlint:disable:next force_try
+        return try! CDMarkdownImage.regex.map { try NSRegularExpression(pattern: $0, options: []) }
+    }()
 
     public init(font: CDFont? = nil,
                 color: CDColor? = CDColor.blue,

@@ -30,10 +30,9 @@ import Foundation
 // The base protocol for all Markdown Elements, it handles parsing through regex.
 public protocol CDMarkdownElement: AnyObject {
 
-    var regex: [String] { get }
+    var regularExpressions: [NSRegularExpression] { get }
     var enabled: Bool { get set }
 
-    func regularExpressions() throws -> [NSRegularExpression]
     func parse(_ attributedString: NSMutableAttributedString)
     func match(_ match: NSTextCheckingResult,
                attributedString: NSMutableAttributedString)
@@ -43,23 +42,20 @@ public extension CDMarkdownElement {
 
     func parse(_ attributedString: NSMutableAttributedString) {
         var location = 0
-        do {
-            let regExpressions = try regularExpressions()
 
-            for regex in regExpressions {
-                location = 0
-                while let regexMatch =
-                        regex.firstMatch(in: attributedString.string,
-                                         options: .withoutAnchoringBounds,
-                                         range: NSRange(location: location,
-                                                        length: attributedString.length - location)) {
-                    let oldLength = attributedString.length
-                    match(regexMatch,
-                          attributedString: attributedString)
-                    let newLength = attributedString.length
-                    location = regexMatch.range.location + regexMatch.range.length + newLength - oldLength
-                }
+        for regex in regularExpressions {
+            location = 0
+            while let regexMatch =
+                    regex.firstMatch(in: attributedString.string,
+                                     options: .withoutAnchoringBounds,
+                                     range: NSRange(location: location,
+                                                    length: attributedString.length - location)) {
+
+                let oldLength = attributedString.length
+                match(regexMatch, attributedString: attributedString)
+                let newLength = attributedString.length
+                location = regexMatch.range.location + regexMatch.range.length + newLength - oldLength
             }
-        } catch { }
+        }
     }
 }

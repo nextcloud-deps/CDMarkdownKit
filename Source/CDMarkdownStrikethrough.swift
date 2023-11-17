@@ -45,9 +45,10 @@ open class CDMarkdownStrikethrough: CDMarkdownCommonElement {
     open var underlineStyle: NSUnderlineStyle?
     open var enabled: Bool = true
 
-    open var regex: [String] {
-        return CDMarkdownStrikethrough.regex
-    }
+    lazy open var regularExpressions: [NSRegularExpression] = {
+        // swiftlint:disable:next force_try
+        return try! CDMarkdownStrikethrough.regex.map { try NSRegularExpression(pattern: $0, options: []) }
+    }()
 
     public init(font: CDFont? = nil,
                 color: CDColor? = nil,

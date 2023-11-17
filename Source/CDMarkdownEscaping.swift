@@ -36,13 +36,10 @@ open class CDMarkdownEscaping: CDMarkdownElement {
     fileprivate static let regex = ["\\\\."]
     open var enabled: Bool = true
 
-    open var regex: [String] {
-        return CDMarkdownEscaping.regex
-    }
-
-    open func regularExpressions() throws -> [NSRegularExpression] {
-        return try regex.map { try NSRegularExpression(pattern: $0, options: .dotMatchesLineSeparators) }
-    }
+    lazy open var regularExpressions: [NSRegularExpression] = {
+        // swiftlint:disable:next force_try
+        return try! CDMarkdownEscaping.regex.map { try NSRegularExpression(pattern: $0, options: [.dotMatchesLineSeparators]) }
+    }()
 
     open func match(_ match: NSTextCheckingResult,
                     attributedString: NSMutableAttributedString) {

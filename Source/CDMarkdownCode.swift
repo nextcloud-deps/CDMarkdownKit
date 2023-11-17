@@ -43,9 +43,10 @@ open class CDMarkdownCode: CDMarkdownCommonElement {
     open var underlineStyle: NSUnderlineStyle?
     open var enabled: Bool = true
 
-    open var regex: [String] {
-        return CDMarkdownCode.regex
-    }
+    lazy open var regularExpressions: [NSRegularExpression] = {
+        // swiftlint:disable:next force_try
+        return try! CDMarkdownCode.regex.map { try NSRegularExpression(pattern: $0, options: []) }
+    }()
 
     public init(font: CDFont? = CDFont(name: "Menlo-Regular", size: 12),
                 color: CDColor? = CDColor.codeTextRed(),
