@@ -33,7 +33,7 @@
 
 open class CDMarkdownEscaping: CDMarkdownElement {
 
-    fileprivate static let regex = ["\\\\."]
+    fileprivate static let regex = ["\\\\[\\*|#|`|\\-|_|~|\\\\|\\(|\\)|\\[|\\]|\\+]"]
     open var enabled: Bool = true
 
     lazy open var regularExpressions: [NSRegularExpression] = {
