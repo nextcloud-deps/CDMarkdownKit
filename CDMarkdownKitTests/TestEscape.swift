@@ -65,4 +65,11 @@ final class TestEscape: XCTestCase {
         let parsed = parser.parse("```\n> This should be left as is```")
         XCTAssertEqual(parsed.string, "> This should be left as is")
     }
+
+    func testNonEscapableChars() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("\\A\\B\\C\\a\\b\\c\\1\\2\\3")
+        XCTAssertEqual(parsed.string, "\\A\\B\\C\\a\\b\\c\\1\\2\\3")
+    }
 }
