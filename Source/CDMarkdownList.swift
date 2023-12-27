@@ -45,6 +45,7 @@ open class CDMarkdownList: CDMarkdownLevelElement {
     open var underlineColor: CDColor?
     open var underlineStyle: NSUnderlineStyle?
     open var enabled: Bool = true
+    open var indicatorFont: CDFont?
 
     lazy open var regularExpressions: [NSRegularExpression] = {
         let level: String = maxLevel > 0 ? "\(maxLevel)" : ""
@@ -97,8 +98,17 @@ open class CDMarkdownList: CDMarkdownLevelElement {
     open func addFullAttributes(_ attributedString: NSMutableAttributedString,
                                 range: NSRange,
                                 level: Int) {
-        let indicatorSize = "\(indicator) ".sizeWithAttributes(attributes)
-        let separatorSize = separator.sizeWithAttributes(attributes)
+        var attributesForSizing = attributes
+
+        // In same cases we don't want to override the font of the string, but to calculate the correct
+        // headIndent, we need to know the font that the indicator and separator uses
+        if self.font == nil, let sizingFont = self.indicatorFont {
+            attributesForSizing.addFont(sizingFont)
+        }
+
+        let indicatorSize = "\(indicator) ".sizeWithAttributes(attributesForSizing)
+        let separatorSize = separator.sizeWithAttributes(attributesForSizing)
+
         let floatLevel = CGFloat(level)
         guard let paragraphStyle = self.paragraphStyle else { return }
         let updatedParagraphStyle = paragraphStyle.mutableCopy() as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
