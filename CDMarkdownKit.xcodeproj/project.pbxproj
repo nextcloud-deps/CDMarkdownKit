@@ -15,6 +15,11 @@
 		1F66CB7C2A8FBC8F00FC7BA7 /* TestCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66CB7B2A8FBC8F00FC7BA7 /* TestCode.swift */; };
 		1F8538492ADFE12E0011FE81 /* TestEscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8538482ADFE12E0011FE81 /* TestEscape.swift */; };
 		1F9A797D2A98B4AF00E153E3 /* TestHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A797C2A98B4AF00E153E3 /* TestHeader.swift */; };
+		1FAFDC352CAB451700F198C3 /* TestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAFDC342CAB451700F198C3 /* TestTask.swift */; };
+		1FAFDC372CAB45CA00F198C3 /* CDMarkdownTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAFDC362CAB45CA00F198C3 /* CDMarkdownTask.swift */; };
+		1FAFDC382CAB45CA00F198C3 /* CDMarkdownTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAFDC362CAB45CA00F198C3 /* CDMarkdownTask.swift */; };
+		1FAFDC392CAB45CA00F198C3 /* CDMarkdownTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAFDC362CAB45CA00F198C3 /* CDMarkdownTask.swift */; };
+		1FAFDC3A2CAB45CA00F198C3 /* CDMarkdownTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAFDC362CAB45CA00F198C3 /* CDMarkdownTask.swift */; };
 		5F0AD09521063D36007B718F /* CDImage+CDMarkdownKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0AD09421063D36007B718F /* CDImage+CDMarkdownKit.swift */; };
 		5F0AD09621063D36007B718F /* CDImage+CDMarkdownKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0AD09421063D36007B718F /* CDImage+CDMarkdownKit.swift */; };
 		5F0AD09721063D36007B718F /* CDImage+CDMarkdownKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0AD09421063D36007B718F /* CDImage+CDMarkdownKit.swift */; };
@@ -184,6 +189,8 @@
 		1F66CB7B2A8FBC8F00FC7BA7 /* TestCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCode.swift; sourceTree = "<group>"; };
 		1F8538482ADFE12E0011FE81 /* TestEscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestEscape.swift; sourceTree = "<group>"; };
 		1F9A797C2A98B4AF00E153E3 /* TestHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHeader.swift; sourceTree = "<group>"; };
+		1FAFDC342CAB451700F198C3 /* TestTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTask.swift; sourceTree = "<group>"; };
+		1FAFDC362CAB45CA00F198C3 /* CDMarkdownTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDMarkdownTask.swift; sourceTree = "<group>"; };
 		5F0AD09421063D36007B718F /* CDImage+CDMarkdownKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDImage+CDMarkdownKit.swift"; sourceTree = "<group>"; };
 		B205C6651FC129EB00E74CBA /* CDColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDColor.swift; sourceTree = "<group>"; };
 		B205C66A1FC129FC00E74CBA /* CDFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDFont.swift; sourceTree = "<group>"; };
@@ -287,6 +294,7 @@
 				1F66CB7B2A8FBC8F00FC7BA7 /* TestCode.swift */,
 				1F8538482ADFE12E0011FE81 /* TestEscape.swift */,
 				1F9A797C2A98B4AF00E153E3 /* TestHeader.swift */,
+				1FAFDC342CAB451700F198C3 /* TestTask.swift */,
 				1F02B8592A90D60D0023148B /* TestSyntax.swift */,
 			);
 			path = CDMarkdownKitTests;
@@ -395,6 +403,7 @@
 				B2B366191F324DE90078B962 /* CDMarkdownQuote.swift */,
 				B2CAD0A028FC20150069CA4B /* CDMarkdownStrikethrough.swift */,
 				B2B3661B1F324DE90078B962 /* CDMarkdownSyntax.swift */,
+				1FAFDC362CAB45CA00F198C3 /* CDMarkdownTask.swift */,
 				B2B3663A1F324E040078B962 /* Escaping */,
 			);
 			name = Elements;
@@ -714,6 +723,7 @@
 				1F9A797D2A98B4AF00E153E3 /* TestHeader.swift in Sources */,
 				1F66CB7A2A8FBC1000FC7BA7 /* TestBold.swift in Sources */,
 				1F02B85C2A90D6210023148B /* TestHelpers.swift in Sources */,
+				1FAFDC352CAB451700F198C3 /* TestTask.swift in Sources */,
 				1F66CB7C2A8FBC8F00FC7BA7 /* TestCode.swift in Sources */,
 				1F02B85A2A90D60D0023148B /* TestSyntax.swift in Sources */,
 				1F66CB672A8EB04C00FC7BA7 /* TestItalic.swift in Sources */,
@@ -734,6 +744,7 @@
 				B2ACA0A91FBF95A400EABEF6 /* CDMarkdownCodeEscaping.swift in Sources */,
 				B2ACA0AF1FBF95A400EABEF6 /* CDMarkdownCommonElement.swift in Sources */,
 				B2ACA0B01FBF95A400EABEF6 /* CDMarkdownElement.swift in Sources */,
+				1FAFDC3A2CAB45CA00F198C3 /* CDMarkdownTask.swift in Sources */,
 				B2ACA0AA1FBF95A400EABEF6 /* CDMarkdownEscaping.swift in Sources */,
 				B2ACA0A21FBF95A400EABEF6 /* CDMarkdownHeader.swift in Sources */,
 				B267903B2868AC0E00DFAAA5 /* CDMarkdownKit.swift in Sources */,
@@ -778,6 +789,7 @@
 				B2ACA0C21FBF960A00EABEF6 /* CDMarkdownCodeEscaping.swift in Sources */,
 				B2ACA0C81FBF960A00EABEF6 /* CDMarkdownCommonElement.swift in Sources */,
 				B2ACA0C91FBF960A00EABEF6 /* CDMarkdownElement.swift in Sources */,
+				1FAFDC392CAB45CA00F198C3 /* CDMarkdownTask.swift in Sources */,
 				B2ACA0C31FBF960A00EABEF6 /* CDMarkdownEscaping.swift in Sources */,
 				B2ACA0BB1FBF960A00EABEF6 /* CDMarkdownHeader.swift in Sources */,
 				B267903C2868AC0E00DFAAA5 /* CDMarkdownKit.swift in Sources */,
@@ -822,6 +834,7 @@
 				B2ACA0DB1FBF967800EABEF6 /* CDMarkdownCodeEscaping.swift in Sources */,
 				B2ACA0E11FBF967800EABEF6 /* CDMarkdownCommonElement.swift in Sources */,
 				B2ACA0E21FBF967800EABEF6 /* CDMarkdownElement.swift in Sources */,
+				1FAFDC372CAB45CA00F198C3 /* CDMarkdownTask.swift in Sources */,
 				B2ACA0DC1FBF967800EABEF6 /* CDMarkdownEscaping.swift in Sources */,
 				B2ACA0D41FBF967800EABEF6 /* CDMarkdownHeader.swift in Sources */,
 				B267903D2868AC0E00DFAAA5 /* CDMarkdownKit.swift in Sources */,
@@ -866,6 +879,7 @@
 				B2B3662B1F324DE90078B962 /* CDMarkdownCodeEscaping.swift in Sources */,
 				B2B3662C1F324DE90078B962 /* CDMarkdownCommonElement.swift in Sources */,
 				B2B3662D1F324DE90078B962 /* CDMarkdownElement.swift in Sources */,
+				1FAFDC382CAB45CA00F198C3 /* CDMarkdownTask.swift in Sources */,
 				B2B3662E1F324DE90078B962 /* CDMarkdownEscaping.swift in Sources */,
 				B2B366271F324DE90078B962 /* CDMarkdownHeader.swift in Sources */,
 				B267903A2868AC0E00DFAAA5 /* CDMarkdownKit.swift in Sources */,

@@ -1,10 +1,10 @@
 //
-//  CDMarkdownList.swift
+//  CDMarkdownTask.swift
 //  CDMarkdownKit
 //
-//  Created by Christopher de Haan on 11/7/16.
+//  Created by Marcel Müller on 30/09/24.
 //
-//  Copyright © 2016-2022 Christopher de Haan <contact@christopherdehaan.me>
+//  Copyright (c) 2024 Marcel Müller <marcel-mueller@gmx.de>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -31,9 +31,11 @@
     import Cocoa
 #endif
 
-open class CDMarkdownList: CDMarkdownLevelElement {
+open class CDMarkdownTask: CDMarkdownLevelElement {
 
-    fileprivate static let regex = "^\\s*([\\*\\+\\-]{1,%@})[ \t]+(.+)$"
+    fileprivate static let regex = "^\\s*([\\*\\+\\-]{1,%@})[ \t]+\\[[ xX]?\\](.+)$"
+    fileprivate static let checkedImage = UIImage(systemName: "checkmark.square.fill")?.withTintColor(.secondaryLabel).withRenderingMode(.alwaysOriginal)
+    fileprivate static let uncheckedImage = UIImage(systemName: "square")?.withTintColor(.secondaryLabel).withRenderingMode(.alwaysOriginal)
 
     open var font: CDFont?
     open var maxLevel: Int
@@ -49,7 +51,7 @@ open class CDMarkdownList: CDMarkdownLevelElement {
 
     lazy open var regularExpressions: [NSRegularExpression] = {
         let level: String = maxLevel > 0 ? "\(maxLevel)" : ""
-        let formattedRegex = String(format: CDMarkdownList.regex, level)
+        let formattedRegex = String(format: CDMarkdownTask.regex, level)
 
         // swiftlint:disable:next force_try
         return [try! NSRegularExpression(pattern: formattedRegex, options: .anchorsMatchLines)]
@@ -57,7 +59,7 @@ open class CDMarkdownList: CDMarkdownLevelElement {
 
     public init(font: CDFont? = nil,
                 maxLevel: Int = 0,
-                indicator: String = "•",
+                indicator: String = "",
                 separator: String = "  ",
                 color: CDColor? = nil,
                 backgroundColor: CDColor? = nil,
@@ -91,8 +93,33 @@ open class CDMarkdownList: CDMarkdownLevelElement {
             return "\(string)\(separator)"
         }
         string = "\(string)\(indicator) "
+
+        let rawString = attributedString.string
+        guard let convertedRange = Range(range, in: rawString),
+              let uncheckedImage = CDMarkdownTask.uncheckedImage, let checkedImage = CDMarkdownTask.checkedImage
+        else { return }
+
+        let subString = rawString[convertedRange]
+        var textAttachment: NSTextAttachment
+
+        // subString is only the indicator part, so "- []" or "- [x]"
+        // so it's safe to check for "[x]" without a range check
+        if subString.contains("[x]") {
+            textAttachment = NSTextAttachment(image: checkedImage)
+        } else {
+            textAttachment = NSTextAttachment(image: uncheckedImage)
+        }
+
+        let attributedResult = NSMutableAttributedString(string: string)
+        attributedResult.append(NSAttributedString(attachment: textAttachment))
+
+        if let font = indicatorFont {
+            let range = NSRange(location: 0, length: attributedResult.length)
+            attributedResult.addFont(font, toRange: range)
+        }
+
         attributedString.replaceCharacters(in: range,
-                                           with: string)
+                                           with: attributedResult)
     }
 
     open func addFullAttributes(_ attributedString: NSMutableAttributedString,
