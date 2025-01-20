@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F02B85A2A90D60D0023148B /* TestSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F02B8592A90D60D0023148B /* TestSyntax.swift */; };
 		1F02B85C2A90D6210023148B /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F02B85B2A90D6210023148B /* TestHelpers.swift */; };
+		1F549C1B2D3EF78C00E9AA9E /* TestStrikethrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F549C1A2D3EF78C00E9AA9E /* TestStrikethrough.swift */; };
 		1F66CB672A8EB04C00FC7BA7 /* TestItalic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66CB662A8EB04C00FC7BA7 /* TestItalic.swift */; };
 		1F66CB682A8EB04C00FC7BA7 /* CDMarkdownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B365B71F3245800078B962 /* CDMarkdownKit.framework */; };
 		1F66CB7A2A8FBC1000FC7BA7 /* TestBold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66CB792A8FBC1000FC7BA7 /* TestBold.swift */; };
@@ -178,6 +179,7 @@
 /* Begin PBXFileReference section */
 		1F02B8592A90D60D0023148B /* TestSyntax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSyntax.swift; sourceTree = "<group>"; };
 		1F02B85B2A90D6210023148B /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		1F549C1A2D3EF78C00E9AA9E /* TestStrikethrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStrikethrough.swift; sourceTree = "<group>"; };
 		1F66CB642A8EB04C00FC7BA7 /* CDMarkdownKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CDMarkdownKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F66CB662A8EB04C00FC7BA7 /* TestItalic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestItalic.swift; sourceTree = "<group>"; };
 		1F66CB792A8FBC1000FC7BA7 /* TestBold.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBold.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				1F8538482ADFE12E0011FE81 /* TestEscape.swift */,
 				1F9A797C2A98B4AF00E153E3 /* TestHeader.swift */,
 				1F02B8592A90D60D0023148B /* TestSyntax.swift */,
+				1F549C1A2D3EF78C00E9AA9E /* TestStrikethrough.swift */,
 			);
 			path = CDMarkdownKitTests;
 			sourceTree = "<group>";
@@ -715,6 +718,7 @@
 				1F66CB7A2A8FBC1000FC7BA7 /* TestBold.swift in Sources */,
 				1F02B85C2A90D6210023148B /* TestHelpers.swift in Sources */,
 				1F66CB7C2A8FBC8F00FC7BA7 /* TestCode.swift in Sources */,
+				1F549C1B2D3EF78C00E9AA9E /* TestStrikethrough.swift in Sources */,
 				1F02B85A2A90D60D0023148B /* TestSyntax.swift in Sources */,
 				1F66CB672A8EB04C00FC7BA7 /* TestItalic.swift in Sources */,
 			);
