@@ -20,12 +20,11 @@ permissions:
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: macOS-latest
-    if: github.event.pull_request.draft == false
+    runs-on: macos-15
 
     env:
       WORKSPACE: CDMarkdownKit.xcworkspace
-      DESTINATION: platform=iOS Simulator,name=iPhone 14,OS=16.2
+      DESTINATION: platform=iOS Simulator,name=iPhone 16,OS=18.0
       SCHEME: "CDMarkdownKit iOS"
 
     steps:

@@ -42,6 +42,12 @@ class TestHelpers {
         return isHelper(testString: testString, at: location, trait: .traitMonoSpace)
     }
 
+    static func isStrikethrough(testString: NSAttributedString, at location: Int) -> Bool {
+        let attributes = testString.attributes(at: location, effectiveRange: nil)
+
+        return attributes.contains { $0.key == .strikethroughStyle && NSUnderlineStyle(rawValue: $0.value as! Int) == .single }
+    }
+
     private static func anyHelper(testString: NSAttributedString, trait: UIFontDescriptor.SymbolicTraits) -> Bool {
         var found = false
 
