@@ -34,13 +34,33 @@ final class TestStrikethrough: XCTestCase {
         parsed = parser.parse("~Test~")
         XCTAssertEqual(parsed.string, "Test")
         XCTAssertTrue(TestHelpers.isStrikethrough(testString: parsed, at: 0))
+
+        // The result is expected, since parser.trimLeadingWhitespaces is true by default
+        parsed = parser.parse(" ~Test~ ")
+        XCTAssertEqual(parsed.string, "Test ")
+        XCTAssertTrue(TestHelpers.isStrikethrough(testString: parsed, at: 1))
+
+        parser.trimLeadingWhitespaces = false
+        parsed = parser.parse(" ~Test~ ")
+        XCTAssertEqual(parsed.string, " Test ")
+        XCTAssertTrue(TestHelpers.isStrikethrough(testString: parsed, at: 3))
     }
 
     func testNonStrikethrough() throws {
         let parser = CDMarkdownParser()
 
-        let parsed = parser.parse("~~Test~")
+        var parsed = parser.parse("~~Test~")
         XCTAssertEqual(parsed.string, "Test~")
         XCTAssertFalse(TestHelpers.isStrikethrough(testString: parsed, at: 0))
+
+        parsed = parser.parse("~Test ~Test")
+        XCTAssertEqual(parsed.string, "~Test ~Test")
+        XCTAssertFalse(TestHelpers.isStrikethrough(testString: parsed, at: 0))
+        XCTAssertFalse(TestHelpers.isStrikethrough(testString: parsed, at: 4))
+
+        parsed = parser.parse("~ Test~ Test")
+        XCTAssertEqual(parsed.string, "~ Test~ Test")
+        XCTAssertFalse(TestHelpers.isStrikethrough(testString: parsed, at: 0))
+        XCTAssertFalse(TestHelpers.isStrikethrough(testString: parsed, at: 4))
     }
 }

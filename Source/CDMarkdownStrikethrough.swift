@@ -33,7 +33,7 @@
 
 open class CDMarkdownStrikethrough: CDMarkdownCommonElement {
 
-    fileprivate static let regex = ["()(~{1,2})(.*?)(\\2)"]
+    fileprivate static let regex = ["()(~~(?!\\s))(.*?)((?<!\\s)~~)", "()(~(?!\\s))(.*?)((?<!\\s)~)"]
 
     open var font: CDFont?
     open var color: CDColor?
