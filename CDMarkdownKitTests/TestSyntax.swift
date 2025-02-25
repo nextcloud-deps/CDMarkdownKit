@@ -112,4 +112,12 @@ final class TestSyntax: XCTestCase {
         XCTAssertFalse(TestHelpers.anyBold(testString: parsed))
         XCTAssertFalse(TestHelpers.anyItalic(testString: parsed))
     }
+
+    func testSyntaxOnlyStart() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("```\nsyntax\n")
+        XCTAssertEqual(parsed.string, "```\nsyntax\n")
+        XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 4))
+    }
 }
