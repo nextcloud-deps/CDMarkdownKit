@@ -44,6 +44,18 @@ final class TestCode: XCTestCase {
         XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 0))
     }
 
+
+    func testCodeMultiple() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("`test` abc `test` abc")
+        XCTAssertEqual(parsed.string, "test abc test abc")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 2))
+        XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 6))
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 11))
+        XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 15))
+    }
+
     func testCodeSentence() throws {
         let parser = getParser()
 

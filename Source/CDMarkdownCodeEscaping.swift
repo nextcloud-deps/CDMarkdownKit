@@ -33,12 +33,12 @@
 
 open class CDMarkdownCodeEscaping: CDMarkdownElement {
 
-    fileprivate static let regex = ["(?<!\\\\)(?:\\\\\\\\)*+(`+)(.*?[^`].*?)(\\1)(?!`)"]
+    fileprivate static let regex = ["(?<!\\\\)(?:\\\\\\\\)*+(`+(?!`))([\\s\\S]*?)(\\1)"]
     open var enabled: Bool = true
 
     lazy open var regularExpressions: [NSRegularExpression] = {
         // swiftlint:disable:next force_try
-        return try! CDMarkdownCodeEscaping.regex.map { try NSRegularExpression(pattern: $0, options: [.dotMatchesLineSeparators]) }
+        return try! CDMarkdownCodeEscaping.regex.map { try NSRegularExpression(pattern: $0, options: []) }
     }()
 
     open func match(_ match: NSTextCheckingResult,
