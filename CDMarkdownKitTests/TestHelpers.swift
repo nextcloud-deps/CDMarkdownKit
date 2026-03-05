@@ -81,5 +81,10 @@ class TestHelpers {
         return attributes.contains { $0.key == .backgroundColor && ($0.value as! UIColor).isEqualTo(otherColor: color) }
     }
 
-    
+    static func hasLink(testString: NSAttributedString, at location: Int, link: String) -> Bool {
+        let attributes = testString.attributes(at: location, effectiveRange: nil)
+
+        return attributes.contains { $0.key == .link && ($0.value as! NSURL).absoluteString == link }
+    }
+
 }

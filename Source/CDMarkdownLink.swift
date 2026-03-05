@@ -33,7 +33,7 @@
 
 open class CDMarkdownLink: CDMarkdownLinkElement {
 
-    fileprivate static let regex = ["[^!{1}]\\[([^\\[]*?)\\]\\(([^\\)]*)\\)"]
+    fileprivate static let regex = ["(?:^|(?<!!))\\[([^\\[]*?)\\]\\(([^\\)]*)\\)"]
 
     open var font: CDFont?
     open var color: CDColor?
@@ -70,14 +70,12 @@ open class CDMarkdownLink: CDMarkdownLinkElement {
     open func formatText(_ attributedString: NSMutableAttributedString,
                          range: NSRange,
                          link: String) {
-        guard let encodedLink = link.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)
-            else {
-                return
-        }
-        guard let url = URL(string: link) ?? URL(string: encodedLink) else { return }
 
-        attributedString.addLink(url,
-                                 toRange: range)
+        guard let encodedLink = link.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed),
+              let url = URL(string: link) ?? URL(string: encodedLink)
+        else { return }
+
+        attributedString.addLink(url, toRange: range)
     }
 
     open func match(_ match: NSTextCheckingResult,
@@ -100,10 +98,10 @@ open class CDMarkdownLink: CDMarkdownLinkElement {
 
         // deleting leading markdown
         // needs to be called before formattingBlock to provide a stable range
-        attributedString.deleteCharacters(in: NSRange(location: match.range.location + 1,
+        attributedString.deleteCharacters(in: NSRange(location: match.range.location,
                                                       length: 1))
-        let formatRange = NSRange(location: match.range.location + 1,
-                                  length: linkStartInResult - match.range.location - 3)
+        let formatRange = NSRange(location: match.range.location,
+                                  length: linkStartInResult - match.range.location - 2)
 
         formatText(attributedString,
                    range: formatRange,
