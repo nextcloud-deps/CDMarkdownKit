@@ -96,6 +96,13 @@ final class TestCode: XCTestCase {
         XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 6))
     }
 
+    func testCodeInsideSyntaxOnlyStart() throws {
+        let parser = getParser()
+        
+        let parsed = parser.parse("```\n`oc_mounts`")
+        XCTAssertEqual(parsed.string, "`oc_mounts`")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 6))
+    }
 
     /*
      // Expected to fail currently, because the CodeEscaping does not differentiate between code and syntax and always allows new lines

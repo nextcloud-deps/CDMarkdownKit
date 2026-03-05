@@ -116,8 +116,25 @@ final class TestSyntax: XCTestCase {
     func testSyntaxOnlyStart() throws {
         let parser = getParser()
 
-        let parsed = parser.parse("```\nsyntax\n")
-        XCTAssertEqual(parsed.string, "```\nsyntax\n")
-        XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 4))
+        let parsed = parser.parse("```\nsyntax")
+        XCTAssertEqual(parsed.string, "syntax")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
     }
+
+    func testSyntaxOnlyStartNewline() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("```\nsyntax\n")
+        XCTAssertEqual(parsed.string, "syntax\n")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
+    }
+
+    func testSyntaxUnevenClosure() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("```\nsyntax\n``")
+        XCTAssertEqual(parsed.string, "syntax\n``")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
+    }
+
 }
