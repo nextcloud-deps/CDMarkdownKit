@@ -43,6 +43,7 @@ open class CDMarkdownParser {
     // MARK: - Basic Elements
     public let header: CDMarkdownHeader
     public let list: CDMarkdownList
+    public let task: CDMarkdownTask
     public let quote: CDMarkdownQuote
     public let link: CDMarkdownLink
     public let automaticLink: CDMarkdownAutomaticLink
@@ -108,6 +109,10 @@ open class CDMarkdownParser {
                               color: fontColor,
                               backgroundColor: backgroundColor,
                               paragraphStyle: paragraphStyle)
+        task = CDMarkdownTask(font: font,
+                              color: fontColor,
+                              backgroundColor: backgroundColor,
+                              paragraphStyle: paragraphStyle)
         quote = CDMarkdownQuote(font: font,
                                 color: fontColor,
                                 backgroundColor: backgroundColor,
@@ -154,9 +159,9 @@ open class CDMarkdownParser {
         self.squashNewlines = squashNewlines
         self.escapingElements = [codeEscaping, escaping]
 #if os(iOS) || os(macOS) || os(tvOS)
-        self.defaultElements = [header, list, quote, link, automaticLink, image, bold, italic, strikethrough]
+        self.defaultElements = [header, task, list, quote, link, automaticLink, image, bold, italic, strikethrough]
 #else
-        self.defaultElements = [header, list, quote, link, automaticLink, bold, italic, strikethrough]
+        self.defaultElements = [header, task, list, quote, link, automaticLink, bold, italic, strikethrough]
 #endif
         self.unescapingElements = [code, syntax, unescaping]
         self.customElements = customElements

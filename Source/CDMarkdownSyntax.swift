@@ -33,7 +33,7 @@
 
 open class CDMarkdownSyntax: CDMarkdownCommonElement {
 
-    fileprivate static let regex = ["()(`{3})(\\s*[^`]*?\\s*)(\\2)(?!`)"]
+    fileprivate static let regex = ["()(`{3})(\\s*[^`]*?\\s*?)(\\2|$)(?!`)"]
 
     open var font: CDFont?
     open var color: CDColor?

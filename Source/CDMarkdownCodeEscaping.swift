@@ -33,7 +33,7 @@
 
 open class CDMarkdownCodeEscaping: CDMarkdownElement {
 
-    fileprivate static let regex = ["(?<!\\\\)(?:\\\\\\\\)*+(`+(?!`))([\\s\\S]*?)(\\1)"]
+    fileprivate static let regex = ["(?<!\\\\)(?:\\\\\\\\)*+(`+(?!`))([\\s\\S]*?)(\\1|$)"]
     open var enabled: Bool = true
 
     lazy open var regularExpressions: [NSRegularExpression] = {
@@ -45,6 +45,10 @@ open class CDMarkdownCodeEscaping: CDMarkdownElement {
                     attributedString: NSMutableAttributedString) {
 
         let range = match.nsRange(atIndex: 2)
+
+        if range.length == 0 {
+            return
+        }
 
         // escaping all characters
         var matchString = attributedString.attributedSubstring(from: range).string
