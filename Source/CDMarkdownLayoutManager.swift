@@ -59,15 +59,25 @@ open class CDMarkdownLayoutManager: NSLayoutManager {
             let textRectFirstLine = self.boundingRect(forGlyphRange: glyphRangeFirstLine, in: textContainer)
 
             // Create a rect that would later become our quote indicator (the bar on the left side of the quote)
-            let newRect = CGRect(x: textRectFirstLine.origin.x - 9, y: textRect.origin.y + 2, width: 4, height: textRect.size.height - 4)
+            let yPadding = 2.0
+            let newRect = CGRect(x: textRectFirstLine.origin.x - 9, y: textRect.origin.y + yPadding, width: 4, height: textRect.size.height - (2 * yPadding))
+
+            var addCurrentRect = true
 
             for rectIdx in previousRects.indices.reversed() {
                 var (level, rect) = previousRects[rectIdx]
 
-                if level < currentLevel {
+                let rectBottom = rect.maxY + (2 * yPadding)
+
+                if level <= currentLevel, newRect.minY <= rectBottom {
                     // If there are lower levels than the current one, we want to adjust the height to include the current level
                     rect = CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.size.width, height: rect.size.height + textRect.size.height)
                     previousRects[rectIdx] = (level, rect)
+
+                    // If it's the same level, we don't want to draw the same rect twice, but we need to continue to adjust other previousRects as well
+                    if level == currentLevel {
+                        addCurrentRect = false
+                    }
                 } else {
                     // If there are higher levels than the current one, we want to draw these rects now
                     UIBezierPath(roundedRect: rect, cornerRadius: 2).fill()
@@ -75,7 +85,9 @@ open class CDMarkdownLayoutManager: NSLayoutManager {
                 }
             }
 
-            previousRects.append((currentLevel, newRect))
+            if addCurrentRect {
+                previousRects.append((currentLevel, newRect))
+            }
         })
 
         // Any remaining rects need to be drawn now
