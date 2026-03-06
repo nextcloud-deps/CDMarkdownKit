@@ -87,4 +87,18 @@ class TestHelpers {
         return attributes.contains { $0.key == .link && ($0.value as! NSURL).absoluteString == link }
     }
 
+    static func getHeadIndent(testString: NSAttributedString, at location: Int) -> CGFloat {
+        let attributes = testString.attributes(at: location, effectiveRange: nil)
+        let firstParagraphStyle = attributes.first(where: { $0.key == .paragraphStyle })?.value as? NSParagraphStyle
+
+        return firstParagraphStyle?.headIndent ?? 0
+    }
+
+    static func getQuoteLevel(testString: NSAttributedString, at location: Int) -> Int {
+        let attributes = testString.attributes(at: location, effectiveRange: nil)
+        let quoteLevel = attributes.first(where: { $0.key == .quoteLevel })?.value as? NSNumber
+
+        return quoteLevel?.intValue ?? 0
+    }
+
 }

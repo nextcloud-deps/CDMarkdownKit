@@ -33,12 +33,11 @@
 
 open class CDMarkdownQuote: CDMarkdownLevelElement {
 
-    fileprivate static let regex = "^(\\>{1,%@})\\s*(.+)$"
+    fileprivate static let regex = "(?:(?<=\\n)|^)(\\>{1,%@})\\s*(.+?)(?:(?=\\n\\n)|$|(?=\\>))"
 
     open var font: CDFont?
     open var maxLevel: Int
     open var indicator: String
-    open var separator: String
     open var color: CDColor?
     open var backgroundColor: CDColor?
     open var paragraphStyle: NSParagraphStyle?
@@ -51,13 +50,12 @@ open class CDMarkdownQuote: CDMarkdownLevelElement {
         let formattedRegex = String(format: CDMarkdownQuote.regex, level)
 
         // swiftlint:disable:next force_try
-        return [try! NSRegularExpression(pattern: formattedRegex, options: .anchorsMatchLines)]
+        return [try! NSRegularExpression(pattern: formattedRegex, options: .dotMatchesLineSeparators)]
     }()
 
     public init(font: CDFont? = nil,
                 maxLevel: Int = 0,
                 indicator: String = ">",
-                separator: String = "  ",
                 color: CDColor? = nil,
                 backgroundColor: CDColor? = nil,
                 paragraphStyle: NSParagraphStyle? = nil,
@@ -66,7 +64,6 @@ open class CDMarkdownQuote: CDMarkdownLevelElement {
         self.font = font
         self.maxLevel = maxLevel
         self.indicator = indicator
-        self.separator = separator
         self.color = color
         self.backgroundColor = backgroundColor
         self.paragraphStyle = paragraphStyle
@@ -98,6 +95,6 @@ open class CDMarkdownQuote: CDMarkdownLevelElement {
     }
 }
 
-extension NSAttributedString.Key {
+public extension NSAttributedString.Key {
     static let quoteLevel: NSAttributedString.Key = .init("quoteLevel")
 }

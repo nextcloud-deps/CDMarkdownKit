@@ -15,6 +15,7 @@
 		1F66CB7A2A8FBC1000FC7BA7 /* TestBold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66CB792A8FBC1000FC7BA7 /* TestBold.swift */; };
 		1F66CB7C2A8FBC8F00FC7BA7 /* TestCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F66CB7B2A8FBC8F00FC7BA7 /* TestCode.swift */; };
 		1F8156CB2F59ECA500D25526 /* TestLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8156CA2F59ECA500D25526 /* TestLink.swift */; };
+		1F8156CE2F5AD67F00D25526 /* TestQuotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8156CD2F5AD67F00D25526 /* TestQuotes.swift */; };
 		1F8538492ADFE12E0011FE81 /* TestEscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8538482ADFE12E0011FE81 /* TestEscape.swift */; };
 		1F9A797D2A98B4AF00E153E3 /* TestHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A797C2A98B4AF00E153E3 /* TestHeader.swift */; };
 		1FAFDC352CAB451700F198C3 /* TestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAFDC342CAB451700F198C3 /* TestTask.swift */; };
@@ -191,6 +192,7 @@
 		1F66CB792A8FBC1000FC7BA7 /* TestBold.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBold.swift; sourceTree = "<group>"; };
 		1F66CB7B2A8FBC8F00FC7BA7 /* TestCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCode.swift; sourceTree = "<group>"; };
 		1F8156CA2F59ECA500D25526 /* TestLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLink.swift; sourceTree = "<group>"; };
+		1F8156CD2F5AD67F00D25526 /* TestQuotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestQuotes.swift; sourceTree = "<group>"; };
 		1F8538482ADFE12E0011FE81 /* TestEscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestEscape.swift; sourceTree = "<group>"; };
 		1F9A797C2A98B4AF00E153E3 /* TestHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHeader.swift; sourceTree = "<group>"; };
 		1FAFDC342CAB451700F198C3 /* TestTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTask.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				1F02B8592A90D60D0023148B /* TestSyntax.swift */,
 				1F549C1A2D3EF78C00E9AA9E /* TestStrikethrough.swift */,
 				1F8156CA2F59ECA500D25526 /* TestLink.swift */,
+				1F8156CD2F5AD67F00D25526 /* TestQuotes.swift */,
 			);
 			path = CDMarkdownKitTests;
 			sourceTree = "<group>";
@@ -729,6 +732,7 @@
 				1F9A797D2A98B4AF00E153E3 /* TestHeader.swift in Sources */,
 				1F66CB7A2A8FBC1000FC7BA7 /* TestBold.swift in Sources */,
 				1F02B85C2A90D6210023148B /* TestHelpers.swift in Sources */,
+				1F8156CE2F5AD67F00D25526 /* TestQuotes.swift in Sources */,
 				1FAFDC352CAB451700F198C3 /* TestTask.swift in Sources */,
 				1F66CB7C2A8FBC8F00FC7BA7 /* TestCode.swift in Sources */,
 				1F549C1B2D3EF78C00E9AA9E /* TestStrikethrough.swift in Sources */,
