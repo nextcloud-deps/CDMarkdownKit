@@ -33,7 +33,7 @@
 
 open class CDMarkdownQuote: CDMarkdownLevelElement {
 
-    fileprivate static let regex = "(?:(?<=\\n)|^)(\\>{1,%@})\\s*(.+?)(?:(?=\\n\\n)|$|(?=\\>))"
+    fileprivate static let regex = "(?:(?<=\\n)|^)(\\>{1,%@})\\s*(.+?)(?:(?=\\n\\n)|$|(?=\\n\\>))"
 
     open var font: CDFont?
     open var maxLevel: Int
