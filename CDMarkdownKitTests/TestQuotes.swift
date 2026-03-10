@@ -99,4 +99,22 @@ final class TestQuotes: XCTestCase {
         XCTAssertEqual(TestHelpers.getQuoteLevel(testString: parsed, at: 14), 1)
     }
 
+    func testQuoteWithIndicator() throws {
+        let parser = CDMarkdownParser()
+
+        let parsed = parser.parse("> This <-> That")
+        XCTAssertEqual(parsed.string, "This <-> That")
+        XCTAssertGreaterThan(TestHelpers.getHeadIndent(testString: parsed, at: 0), 0)
+        XCTAssertEqual(TestHelpers.getQuoteLevel(testString: parsed, at: 0), 0)
+
+        let paragraphStyleStart = parsed.attribute(.paragraphStyle, at: 0, effectiveRange: nil) as? NSParagraphStyle
+        let paragraphStyleEnd = parsed.attribute(.paragraphStyle, at: 12, effectiveRange: nil) as? NSParagraphStyle
+
+        XCTAssertNotNil(paragraphStyleStart)
+
+        // Ensure the paragraphStyle is for the whole line and not split at ">"
+        XCTAssertEqual(paragraphStyleStart, paragraphStyleEnd)
+    }
+
+
 }
