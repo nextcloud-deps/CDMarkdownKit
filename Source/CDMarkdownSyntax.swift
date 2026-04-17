@@ -75,8 +75,9 @@ open class CDMarkdownSyntax: CDMarkdownCommonElement {
         attributedString.replaceCharacters(in: range,
                                            with: unescapedString)
 
+        // Since we use NSRange here, we need to count based on UTF16, alternatively could use NSString length property
         let range = NSRange(location: range.location,
-                            length: unescapedString.characterCount())
+                            length: unescapedString.utf16.count)
         attributedString.addAttributes(attributes,
                                        range: range)
         // If the previous character was a newline then parser doesn't have to worry about

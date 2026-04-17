@@ -137,4 +137,15 @@ final class TestSyntax: XCTestCase {
         XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
     }
 
+    func testEmojiInsideSyntax() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("```\nsyntax\n👍ABC\n```")
+        XCTAssertEqual(parsed.string, "syntax\n👍ABC\n")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 10))
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 11))
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 12))
+    }
+
 }
