@@ -68,10 +68,13 @@ open class CDMarkdownCode: CDMarkdownCommonElement {
         guard let unescapedString = matchString.fromBase64() else { return }
         attributedString.replaceCharacters(in: range,
                                            with: unescapedString)
+
+        // Since we use NSRange here, we need to count based on UTF16, alternatively could use NSString length property
         let range = NSRange(location: range.location,
-                            length: unescapedString.characterCount())
+                            length: unescapedString.utf16.count)
         attributedString.addAttributes(attributes,
                                        range: range)
+        
         let mutableString = attributedString.mutableString
         // Remove \n if in string, not valid in Code element
         // Use Syntax element for \n to parse in string

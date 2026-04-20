@@ -95,10 +95,6 @@ internal extension String {
         return from ..< to
     }
 
-    func characterCount() -> Int {
-        return self.count
-    }
-
     func sizeWithAttributes(_ attributes: [CDAttributedStringKey: Any]? = nil) -> CGSize {
         return self.size(withAttributes: attributes)
     }

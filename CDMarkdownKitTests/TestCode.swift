@@ -104,6 +104,16 @@ final class TestCode: XCTestCase {
         XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 6))
     }
 
+    func testEmojiInsideCode() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("`test 👋 abc`")
+        XCTAssertEqual(parsed.string, "test 👋 abc")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 1))
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 9))
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 10))
+    }
+
     /*
      // Expected to fail currently, because the CodeEscaping does not differentiate between code and syntax and always allows new lines
      func testCodeMultiline() throws {
