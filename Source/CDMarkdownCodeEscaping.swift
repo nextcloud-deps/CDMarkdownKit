@@ -33,7 +33,9 @@
 
 open class CDMarkdownCodeEscaping: CDMarkdownElement {
 
-    fileprivate static let regex = ["(?<!\\\\)(?:\\\\\\\\)*+(`+(?!`))([\\s\\S]*?)(\\1|$)"]
+    // Surplus backticks of a closing fence longer than the opening one are consumed here,
+    // otherwise they are left behind and open a code element over the following text
+    fileprivate static let regex = ["(?<!\\\\)(?:\\\\\\\\)*+(`+(?!`))([\\s\\S]*?)(\\1`*|$)"]
     open var enabled: Bool = true
 
     lazy open var regularExpressions: [NSRegularExpression] = {

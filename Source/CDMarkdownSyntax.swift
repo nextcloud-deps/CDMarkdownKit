@@ -33,7 +33,8 @@
 
 open class CDMarkdownSyntax: CDMarkdownCommonElement {
 
-    fileprivate static let regex = ["()(`{3})(\\s*[^`]*?\\s*?)(\\2|$)(?!`)"]
+    // The closing fence may be longer than the opening one, all of its backticks belong to it
+    fileprivate static let regex = ["()(`{3})(\\s*[^`]*?\\s*?)(`{3,}|$)"]
 
     open var font: CDFont?
     open var color: CDColor?
