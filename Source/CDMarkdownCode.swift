@@ -33,7 +33,9 @@
 
 open class CDMarkdownCode: CDMarkdownCommonElement {
 
-    fileprivate static let regex = ["((?<!`))(`{1,2})(\\s*?[^`]*?\\s*?)(\\2|$)(?!`)"]
+    // A run of 3 or more backticks is a syntax fence, it must not open a code element.
+    // The closing run may be longer than the opening one, all of its backticks belong to it
+    fileprivate static let regex = ["((?<!`))(`{1,2})(?!`)(\\s*?[^`]*?\\s*?)(\\2`*|$)"]
 
     open var font: CDFont?
     open var color: CDColor?

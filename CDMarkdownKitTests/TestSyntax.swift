@@ -137,6 +137,48 @@ final class TestSyntax: XCTestCase {
         XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
     }
 
+    func testSyntaxLongerClosure() throws {
+        let parser = getParser()
+
+        // A closing fence longer than the opening one still closes the block
+        var parsed = parser.parse("```\nsyntax\n````")
+        XCTAssertEqual(parsed.string, "syntax\n")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
+
+        parsed = parser.parse("```\nsyntax\n`````")
+        XCTAssertEqual(parsed.string, "syntax\n")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
+    }
+
+    func testSyntaxLongerClosureFollowedByText() throws {
+        let parser = getParser()
+
+        // The surplus backticks belong to the closing fence, they must not start a new element
+        var parsed = parser.parse("```\nsyntax\n````\nmore text")
+        XCTAssertEqual(parsed.string, "syntax\n\nmore text")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
+        XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 8))
+
+        parsed = parser.parse("```js\nsyntax\n``````\nmore text")
+        XCTAssertEqual(parsed.string, "syntax\n\nmore text")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
+        XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 8))
+    }
+
+    func testSyntaxLongerOpeningFence() throws {
+        let parser = getParser()
+
+        // An opening fence longer than 3 backticks is a fence too
+        var parsed = parser.parse("````\nsyntax\n````")
+        XCTAssertEqual(parsed.string, "syntax\n")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
+
+        parsed = parser.parse("`````\nsyntax\n`````\nmore text")
+        XCTAssertEqual(parsed.string, "syntax\n\nmore text")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
+        XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 8))
+    }
+
     func testEmojiInsideSyntax() throws {
         let parser = getParser()
 
