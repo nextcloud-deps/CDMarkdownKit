@@ -33,8 +33,9 @@
 
 open class CDMarkdownSyntax: CDMarkdownCommonElement {
 
-    // The closing fence may be longer than the opening one, all of its backticks belong to it
-    fileprivate static let regex = ["()(`{3})(\\s*[^`]*?\\s*?)(`{3,}|$)"]
+    // Both fences may be longer than 3 backticks and the closing one longer than the opening
+    // one, in every case all backticks of a run belong to the fence
+    fileprivate static let regex = ["()(`{3,})(\\s*[^`]*?\\s*?)(`{3,}|$)"]
 
     open var font: CDFont?
     open var color: CDColor?

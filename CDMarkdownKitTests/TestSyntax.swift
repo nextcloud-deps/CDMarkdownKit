@@ -165,6 +165,20 @@ final class TestSyntax: XCTestCase {
         XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 8))
     }
 
+    func testSyntaxLongerOpeningFence() throws {
+        let parser = getParser()
+
+        // An opening fence longer than 3 backticks is a fence too
+        var parsed = parser.parse("````\nsyntax\n````")
+        XCTAssertEqual(parsed.string, "syntax\n")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
+
+        parsed = parser.parse("`````\nsyntax\n`````\nmore text")
+        XCTAssertEqual(parsed.string, "syntax\n\nmore text")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 4))
+        XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 8))
+    }
+
     func testEmojiInsideSyntax() throws {
         let parser = getParser()
 

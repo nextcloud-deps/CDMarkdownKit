@@ -104,6 +104,36 @@ final class TestCode: XCTestCase {
         XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 6))
     }
 
+    func testCodeLongerClosure() throws {
+        let parser = getParser()
+
+        // A closing run longer than the opening one still closes the code element
+        var parsed = parser.parse("`code``")
+        XCTAssertEqual(parsed.string, "code")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 0))
+
+        parsed = parser.parse("a ``code``` c")
+        XCTAssertEqual(parsed.string, "a code c")
+        XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 0))
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 3))
+        XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 7))
+    }
+
+    func testCodeLongerClosureFollowedByText() throws {
+        let parser = getParser()
+
+        // The surplus backticks belong to the closing run, they must not start a new element
+        var parsed = parser.parse("`code``\nmore text")
+        XCTAssertEqual(parsed.string, "code\nmore text")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 0))
+        XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 5))
+
+        parsed = parser.parse("``code````\nmore text")
+        XCTAssertEqual(parsed.string, "code\nmore text")
+        XCTAssertTrue(TestHelpers.isMonospaced(testString: parsed, at: 0))
+        XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 5))
+    }
+
     func testEmojiInsideCode() throws {
         let parser = getParser()
 
