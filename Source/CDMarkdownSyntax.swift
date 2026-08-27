@@ -80,6 +80,12 @@ open class CDMarkdownSyntax: CDMarkdownCommonElement {
         // Since we use NSRange here, we need to count based on UTF16, alternatively could use NSString length property
         let range = NSRange(location: range.location,
                             length: unescapedString.utf16.count)
+
+        // Add a custom attribute to the code block, so it can be detected later, e.g. when hit testing,
+        // since the styling of a code block and inline code can be identical
+        var attributes = self.attributes
+        attributes[.syntaxBlock] = NSNumber(value: true)
+
         attributedString.addAttributes(attributes,
                                        range: range)
         // If the previous character was a newline then parser doesn't have to worry about
@@ -122,4 +128,8 @@ open class CDMarkdownSyntax: CDMarkdownCommonElement {
             }
         }
     }
+}
+
+public extension NSAttributedString.Key {
+    static let syntaxBlock: NSAttributedString.Key = .init("syntaxBlock")
 }

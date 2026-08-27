@@ -179,6 +179,28 @@ final class TestSyntax: XCTestCase {
         XCTAssertFalse(TestHelpers.isMonospaced(testString: parsed, at: 8))
     }
 
+    func testSyntaxBlockAttribute() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("a ```syntax``` c")
+        XCTAssertEqual(parsed.string, "a syntax c")
+
+        var effectiveRange = NSRange()
+        XCTAssertNotNil(parsed.attribute(.syntaxBlock, at: 3, effectiveRange: &effectiveRange))
+        XCTAssertEqual(effectiveRange, NSRange(location: 2, length: 6))
+
+        XCTAssertNil(parsed.attribute(.syntaxBlock, at: 0, effectiveRange: nil))
+        XCTAssertNil(parsed.attribute(.syntaxBlock, at: 9, effectiveRange: nil))
+    }
+
+    func testInlineCodeHasNoSyntaxBlockAttribute() throws {
+        let parser = getParser()
+
+        let parsed = parser.parse("a `code` c")
+        XCTAssertEqual(parsed.string, "a code c")
+        XCTAssertNil(parsed.attribute(.syntaxBlock, at: 3, effectiveRange: nil))
+    }
+
     func testEmojiInsideSyntax() throws {
         let parser = getParser()
 
